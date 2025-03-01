@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Roller API Tester</title>
+  </head>
+  <body>
+    <h1>Dice Roller API Test</h1>
+    <button onclick="testRoll()">Roll Dice</button>
+    <button onclick="testWakeUp()">Wake Up Server</button>
+    <p id="result"></p>
+
+    <script>
+      const apiUrl = "https://your-app-name.azurewebsites.net"; // Replace with your actual API URL
+
+      async function testRoll() {
+        try {
+          const response = await fetch(`${apiUrl}/roll?count=5&sides=6`);
+          const data = await response.json();
+          document.getElementById("result").innerText =
+            "Rolls: " + data.rolls.join(", ");
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("result").innerText = "API request failed.";
+        }
+      }
+
+      async function testWakeUp() {
+        try {
+          const response = await fetch(`${apiUrl}/wake-up`);
+          const data = await response.json();
+          document.getElementById("result").innerText = data.message;
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("result").innerText = "API request failed.";
+        }
+      }
+    </script>
+  </body>
+</html>
